@@ -1,3 +1,14 @@
 spring:
   application:
     name: ifrn-acolhe
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db_ifrnacolhe
+    username: postgres
+    password: jadson
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
