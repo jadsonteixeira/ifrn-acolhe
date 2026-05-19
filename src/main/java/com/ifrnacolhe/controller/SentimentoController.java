@@ -9,10 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/ifrnacolhe/sentimentos")
@@ -29,5 +26,14 @@ public class SentimentoController {
     @ApiResponse(responseCode = "500", description = "Erro de servidor")
     public ResponseEntity<SentimentoResponseDTO> salvar(@RequestBody SentimentoRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(sentimentoService.salvar(dto));
+    }
+
+    @GetMapping
+    @Operation(summary = "Buscar Sentimento pelo nome", description = "Busca os dados do sentimento pelo nome")
+    @ApiResponse(responseCode = "200", description = "Sentimento encontrado com sucesso")
+    @ApiResponse(responseCode = "404", description = "Sentimento não encontrado")
+    @ApiResponse(responseCode = "500", description = "Erro de servidor")
+    public ResponseEntity<SentimentoResponseDTO> buscarPorNome(@RequestParam("nome") String nome) {
+        return ResponseEntity.ok(sentimentoService.buscarPorNome(nome));
     }
 }
