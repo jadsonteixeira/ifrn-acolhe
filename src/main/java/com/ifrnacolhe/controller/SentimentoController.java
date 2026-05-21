@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/ifrnacolhe/sentimentos")
 @RequiredArgsConstructor
@@ -29,6 +31,14 @@ public class SentimentoController {
     }
 
     @GetMapping
+    @Operation(summary = "Listar Sentimentos", description = "Listar todos os sentimentos")
+    @ApiResponse(responseCode = "200", description = "Sentimentos listados com sucesso")
+    @ApiResponse(responseCode = "500", description = "Erro de servidor")
+    public ResponseEntity<List<SentimentoResponseDTO>> listar() {
+        return ResponseEntity.ok(sentimentoService.listar());
+    }
+
+    @GetMapping("/buscar")
     @Operation(summary = "Buscar Sentimento pelo nome", description = "Busca os dados do sentimento pelo nome")
     @ApiResponse(responseCode = "200", description = "Sentimento encontrado com sucesso")
     @ApiResponse(responseCode = "404", description = "Sentimento não encontrado")

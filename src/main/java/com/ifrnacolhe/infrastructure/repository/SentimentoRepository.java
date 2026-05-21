@@ -10,6 +10,5 @@ import java.util.Optional;
 public interface SentimentoRepository extends JpaRepository<Sentimento, Long> {
 
     Optional<Sentimento> findByNomeIgnoreCase(String nome);
-    boolean existsByNome(String nome);
     boolean existsByNomeIgnoreCase(String nome);
 }

@@ -10,6 +10,8 @@ import com.ifrnacolhe.infrastructure.repository.SentimentoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class SentimentoService {
@@ -29,9 +31,16 @@ public class SentimentoService {
     }
 
     private void verificarSentimentoExistente(String nome) {
-        if (sentimentoRepository.existsByNome(nome)) {
+        if (sentimentoRepository.existsByNomeIgnoreCase(nome)) {
             throw new ConflictException("Já existe um sentimento cadastrado com esse nome! - Nome: " + nome);
         }
+    }
+
+    public List<SentimentoResponseDTO> listar() {
+        return sentimentoRepository.findAll()
+                .stream()
+                .map(sentimentoMapper::toResponseDTO)
+                .toList();
     }
 
     public SentimentoResponseDTO buscarPorNome(String nome) {
