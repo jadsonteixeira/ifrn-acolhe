@@ -32,7 +32,7 @@ public class SentimentoService {
 
     private void verificarSentimentoExistente(String nome) {
         if (sentimentoRepository.existsByNomeIgnoreCase(nome)) {
-            throw new ConflictException("Já existe um sentimento cadastrado com esse nome! - Nome: " + nome);
+            throw new ConflictException("Já existe um sentimento cadastrado com esse nome: " + nome);
         }
     }
 
@@ -49,5 +49,43 @@ public class SentimentoService {
                 sentimentoRepository.findByNomeIgnoreCase(nome)
                         .orElseThrow(() -> new ResourceNotFoundException("Sentimento " + nome + " não encontrado"))
         );
+    }
+
+    public void verificarSentimentoExistenteUpdate(String nome, Long id) {
+        if (sentimentoRepository.existsByNomeIgnoreCaseAndIdNot(nome, id)) {
+            throw new ConflictException("Já existe um sentimento cadastrado com esse nome: " + nome);
+        }
+    }
+
+    public SentimentoResponseDTO atualizar(Long id, SentimentoRequestDTO dto) {
+
+        Sentimento entity = sentimentoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Sentimento não encontrado com id: " + id));
+
+        verificarSentimentoExistenteUpdate(dto.getNome(), id);
+
+        entity.setNome(dto.getNome());
+
+        return sentimentoMapper.toResponseDTO(sentimentoRepository.save(entity));
+    }
+
+    public SentimentoResponseDTO desativar(Long id) {
+
+        Sentimento entity = sentimentoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Sentimento não encontrado com id: " + id));
+
+        entity.desativar();
+
+        return sentimentoMapper.toResponseDTO(sentimentoRepository.save(entity));
+    }
+
+    public SentimentoResponseDTO reativar(Long id) {
+
+        Sentimento entity = sentimentoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Sentimento não encontrado com id: " + id));
+
+        entity.ativar();
+
+        return sentimentoMapper.toResponseDTO(sentimentoRepository.save(entity));
     }
 }

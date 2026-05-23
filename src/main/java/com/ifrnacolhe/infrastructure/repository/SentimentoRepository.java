@@ -11,4 +11,5 @@ public interface SentimentoRepository extends JpaRepository<Sentimento, Long> {
 
     Optional<Sentimento> findByNomeIgnoreCase(String nome);
     boolean existsByNomeIgnoreCase(String nome);
+    boolean existsByNomeIgnoreCaseAndIdNot(String nome, Long id);
 }

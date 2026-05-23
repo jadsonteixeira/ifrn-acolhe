@@ -5,10 +5,11 @@ import com.ifrnacolhe.business.dto.response.SentimentoResponseDTO;
 import com.ifrnacolhe.infrastructure.entity.Sentimento;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface SentimentoMapper {
 
     Sentimento toEntity(SentimentoRequestDTO dto);
-
     SentimentoResponseDTO toResponseDTO(Sentimento entity);
 }

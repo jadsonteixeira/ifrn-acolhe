@@ -25,4 +25,8 @@ public class Sentimento {
     public void ativar() {
         setAtivo(true);
     }
+
+    public void desativar() {
+        setAtivo(false);
+    }
 }

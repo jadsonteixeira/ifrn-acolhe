@@ -46,4 +46,33 @@ public class SentimentoController {
     public ResponseEntity<SentimentoResponseDTO> buscarPorNome(@RequestParam("nome") String nome) {
         return ResponseEntity.ok(sentimentoService.buscarPorNome(nome));
     }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Atualizar Sentimento", description = "Atualiza o nome do sentimento")
+    @ApiResponse(responseCode = "200", description = "Sentimento atualizado com sucesso")
+    @ApiResponse(responseCode = "404", description = "Sentimento não encontrado")
+    @ApiResponse(responseCode = "409", description = "Já existe um sentimento com esse nome")
+    @ApiResponse(responseCode = "500", description = "Erro de servidor")
+    public ResponseEntity<SentimentoResponseDTO> atualizar(@PathVariable Long id,
+                                                           @RequestBody SentimentoRequestDTO dto) {
+        return ResponseEntity.ok(sentimentoService.atualizar(id, dto));
+    }
+
+    @PatchMapping("/{id}/desativar")
+    @Operation(summary = "Desativar Sentimento", description = "Desativa o sentimento")
+    @ApiResponse(responseCode = "200", description = "Sentimento desativado com sucesso")
+    @ApiResponse(responseCode = "404", description = "Sentimento não encontrado")
+    @ApiResponse(responseCode = "500", description = "Erro de servidor")
+    public ResponseEntity<SentimentoResponseDTO> desativar(@PathVariable Long id) {
+        return ResponseEntity.ok(sentimentoService.desativar(id));
+    }
+
+    @PatchMapping("/{id}/reativar")
+    @Operation(summary = "Reativar Sentimento", description = "Reativa o sentimento")
+    @ApiResponse(responseCode = "200", description = "Sentimento reativado com sucesso")
+    @ApiResponse(responseCode = "404", description = "Sentimento não encontrado")
+    @ApiResponse(responseCode = "500", description = "Erro de servidor")
+    public ResponseEntity<SentimentoResponseDTO> reativar(@PathVariable Long id) {
+        return ResponseEntity.ok(sentimentoService.reativar(id));
+    }
 }
