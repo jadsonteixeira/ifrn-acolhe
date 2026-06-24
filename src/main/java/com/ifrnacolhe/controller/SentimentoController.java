@@ -19,6 +19,7 @@ import java.util.List;
 @Tag(name = "Sentimento", description = "CRUD de Sentimento")
 public class SentimentoController {
 
+    // salvando
     private final SentimentoService sentimentoService;
 
     @PostMapping
