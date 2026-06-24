@@ -10,4 +10,5 @@ import lombok.*;
 public class SentimentoResponseDTO {
 
     private String nome;
+    private Boolean ativo;
 }
